@@ -1,0 +1,32 @@
+---
+title: "Florida Covid-19 Data Team Project"
+author: "Minxin Cheng"
+date: "10/2/2021"
+output: pdf_document
+subtitle: Assignment 14
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Import fl covid-19 data
+
+```{r}
+setwd("/Users/marthafly/OneDrive - University of Florida/UF Health - Team 3")
+
+flinfo<-read.csv('flinfo2021.csv', header=TRUE)
+```
+
+Read a dataset from Github
+
+```{r}
+Vaccination <- read.csv('Covid-19_Vaccinations_in_the_United_States_County.csv')
+```
+
+Let's subset this worldwide data and just preserve the Florida information
+
+```{r}
+fl_vaccination <- subset(Vaccination, Vaccination$Recip_State=="FL")
+```
+
