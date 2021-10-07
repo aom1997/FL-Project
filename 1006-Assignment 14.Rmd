@@ -1,0 +1,38 @@
+---
+title: "Florida Covid-19 Data Team Project"
+author: "Minxin Cheng"
+date: "10/2/2021"
+output: pdf_document
+subtitle: Assignment 14
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Import fl covid-19 data
+
+```{r}
+flinfo<-read.csv('https://raw.githubusercontent.com/aom1997/FL-Project/main/flinfo2021.csv')
+```
+
+# Read a dataset（Over65 percentage） from Github, Source(https://www.census.gov/quickfacts/geo/chart/alachuacountyflorida/AGE775219#AGE775219 )
+
+```{r}
+fl_Over65 <- read.csv('https://raw.githubusercontent.com/aom1997/FL-Project/main/FLinfo%20Over65.csv')
+```
+
+# Read a dataset（Income） from Github, Source(https://fred.stlouisfed.org/release/tables?rid=175&eid=266444#)
+
+```{r}
+fl_Income <- read.csv('https://raw.githubusercontent.com/aom1997/FL-Project/main/FLinfo%20Per%20captial%20personal%20income.csv')
+```
+
+#Left Join
+```{r}
+newdata <- merge(flinfo,fl_Over65,by="Admin2",all.x = TRUE)
+newdata<-merge(newdata,fl_Income,by="Admin2",all.x = TRUE)
+colnames(newdata)[15]<-"over65"
+colnames(newdata)[16]<-"income"
+newdata$over65<-as.numeric(gsub("%","",newdata$over65))
+```
